@@ -4,10 +4,10 @@ from atom import Atom
 time = 0  # Time in simulation.
 dt = 0.01  # Time step size.
 
-a = 1
-z = 4
+A = 1
+Z = 4
 
-atom = Atom(a, z)
+atom = Atom(A, Z)
 atom.get_points()
 atom.build()
 
