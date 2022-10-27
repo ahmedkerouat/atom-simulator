@@ -9,10 +9,10 @@ Z = 4
 
 atom = Atom(A, Z)
 atom.get_points()
+atom.get_electron_configuration()
 atom.build()
 
 while (time <= 1000):
     rate(100)  # Number of frames/loops per second.
 
-    atom.animate(time)
     time = time + dt
