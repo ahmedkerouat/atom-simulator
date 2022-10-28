@@ -1,3 +1,4 @@
+from numpy import angle
 from vpython import *
 from random import random, randint
 
@@ -12,8 +13,10 @@ class Atom():
         self.nucleons = []
         self.electrons = []
 
+        self.run = False
+
     def get_points(self):
-        r = self.num_charges * 0.1
+        r = sqrt(self.num_charges) * 0.2
         best_closest_d = 0
         best_points = []
         points = [(r, 0, 0) for i in range(self.num_charges)]
@@ -80,13 +83,16 @@ class Atom():
             conf = conf.replace(element, "")
         for h in conf.split():
             for i in range(int(h)):
-                xy = self.point(0, 0, 1 + i)
+                xy = self.point(0, 0, 0.3 * self.num_charges +
+                                (i * 0.3 * self.num_charges))
                 electron = sphere(radius=0.1, color=vector(
-                    1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))  # <------
+                    1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))
                 self.electrons.append(electron)
-    '''
+
     def animate(self, time):
         for electron in self.electrons:
-            electron.pos.x += 0.01 * cos(time)
-            electron.pos.y += 0.01 * sin(time)
-    '''
+            r = sqrt(electron.pos.x*electron.pos.x +
+                     electron.pos.y*electron.pos.y)
+
+            electron.pos.x = r * cos(time)
+            electron.pos.y = r * sin(time)
