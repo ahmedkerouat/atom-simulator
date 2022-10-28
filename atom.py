@@ -13,7 +13,7 @@ class Atom():
         self.electrons = []
 
     def get_points(self):
-        r = 1
+        r = self.num_charges * 0.1
         best_closest_d = 0
         best_points = []
         points = [(r, 0, 0) for i in range(self.num_charges)]
@@ -64,7 +64,11 @@ class Atom():
             new_num = last_electrons - dif
             self.result[-1] = self.result[-1][:last_electron_pos] + \
                 str(new_num)
-        self.config_result = (' '.join(self.result))
+        self.config_result = (" ".join(self.result))
+
+    def point(self, j, k, r):
+        theta = random() * 2 * pi
+        return j + cos(theta) * r, k + sin(theta) * r
 
     def build(self):
         for _, coords in zip(range(1, self.num_charges + 1), self.best_points):
@@ -76,10 +80,13 @@ class Atom():
             conf = conf.replace(element, "")
         for h in conf.split():
             for i in range(int(h)):
+                xy = self.point(0, 0, 1 + i)
                 electron = sphere(radius=0.1, color=vector(
-                    1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(10 * i, 0, 0))  # <------
+                    1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))  # <------
                 self.electrons.append(electron)
-
-
-def animate(self, time):
-    pass
+    '''
+    def animate(self, time):
+        for electron in self.electrons:
+            electron.pos.x += 0.01 * cos(time)
+            electron.pos.y += 0.01 * sin(time)
+    '''
