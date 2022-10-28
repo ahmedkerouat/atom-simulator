@@ -12,8 +12,6 @@ class Atom():
         self.nucleons = []
         self.electrons = []
 
-        self.run = False
-
     def get_points(self):
         r = sqrt(self.num_charges) * 0.2
         best_closest_d = 0
