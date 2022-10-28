@@ -89,10 +89,13 @@ class Atom():
                     1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))
                 self.electrons.append(electron)
 
-    def animate(self, time):
+    def animate(self):
         for electron in self.electrons:
+
             r = sqrt(electron.pos.x*electron.pos.x +
                      electron.pos.y*electron.pos.y)
 
-            electron.pos.x = r * cos(time)
-            electron.pos.y = r * sin(time)
+            g = atan2(electron.pos.y, electron.pos.x)
+
+            electron.pos.x = r * cos(0.02 + g)
+            electron.pos.y = r * sin(0.02 + g)
