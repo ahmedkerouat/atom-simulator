@@ -1,4 +1,3 @@
-from numpy import angle
 from vpython import *
 from random import random, randint
 
@@ -70,7 +69,7 @@ class Atom():
         self.config_result = (" ".join(self.result))
 
     def point(self, j, k, r):
-        theta = random() * 2 * pi
+        theta = random() * 3 * pi
         return j + cos(theta) * r, k + sin(theta) * r
 
     def build(self):
@@ -81,10 +80,12 @@ class Atom():
         conf = self.config_result
         for element in self.orbitals:
             conf = conf.replace(element, "")
+        r = 0
         for h in conf.split():
-            for i in range(int(h)):
-                xy = self.point(0, 0, 0.3 * self.num_charges +
-                                (i * 0.3 * self.num_charges))
+            r += 1
+            for i in range(1, int(h) + 1):
+                xy = self.point(0, 0,
+                                (r * 0.5 * sqrt(self.num_charges)))
                 electron = sphere(radius=0.1, color=vector(
                     1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))
                 self.electrons.append(electron)
