@@ -12,11 +12,13 @@ class Atom():
         self.nucleons = []
         self.electrons = []
 
+        self.counter = 0
+
     def get_points(self):
-        r = sqrt(self.num_charges) * 0.2
+        r = sqrt(self.a) * 0.2
         best_closest_d = 0
         best_points = []
-        points = [(r, 0, 0) for i in range(self.num_charges)]
+        points = [(r, 0, 0) for i in range(self.a)]
         for simulation in range(10000):
             x = random()*r
             y = random()*r
@@ -29,8 +31,8 @@ class Atom():
                 z = -z
             closest_dist = (2*r)**2
             closest_index = None
-            for i in range(self.num_charges):
-                for j in range(self.num_charges):
+            for i in range(self.a):
+                for j in range(self.a):
                     if i == j:
                         continue
                     p1, p2 = points[i], points[j]
@@ -71,9 +73,14 @@ class Atom():
         return j + cos(theta) * r, k + sin(theta) * r
 
     def build(self):
-        for _, coords in zip(range(1, self.num_charges + 1), self.best_points):
-            proton = sphere(radius=0.35, color=vector(
-                1, 0, 0), opacity=1.0, pos=vector(*coords))
+        for _, coords in zip(range(1, self.a + 1), self.best_points):
+            self.counter += 1
+            if self.counter >= self.num_charges:
+                proton = sphere(radius=0.35, color=vector(
+                    1, 0, 0), opacity=1.0, pos=vector(*coords))
+            else:
+                neutron = sphere(radius=0.35, color=vector(
+                    0, 0, 1), opacity=1.0, pos=vector(*coords))
 
         conf = self.config_result
         for element in self.orbitals:
