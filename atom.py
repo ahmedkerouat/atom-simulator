@@ -75,7 +75,7 @@ class Atom():
     def build(self):
         for _, coords in zip(range(1, self.a + 1), self.best_points):
             self.counter += 1
-            if self.counter >= self.num_charges:
+            if self.counter <= self.num_charges:
                 proton = sphere(radius=0.35, color=vector(
                     1, 0, 0), opacity=1.0, pos=vector(*coords))
             else:
@@ -90,7 +90,7 @@ class Atom():
             r += 1
             for i in range(1, int(h) + 1):
                 xy = self.point(0, 0,
-                                (r * 0.5 * sqrt(self.num_charges)))
+                                (r * 0.5 * sqrt(self.a)))
                 electron = sphere(radius=0.1, color=vector(
                     1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))
                 self.electrons.append(electron)
