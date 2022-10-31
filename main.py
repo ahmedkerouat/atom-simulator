@@ -1,18 +1,24 @@
 from vpython import *
 from atom import Atom
 
-time = 0  # Time in simulation.
-dt = 0.01  # Time step size.
+run = True
+dt = 100  # Time step size.
+time = 0
 
-A = 1  # Number of nucleons
-Z = 5  # Number of charges / Atomic Number
+A = 6  # Number of nucleons
+Z = 3  # Number of charges / Atomic Number
 
-atom = Atom(A, Z)
-atom.get_points()
-atom.get_electron_configuration()
-atom.build()
+if 0 < Z <= 118 and type(A) == int and type(Z) == int:
 
-while (time <= 1000):
-    rate(100)  # Number of frames/loops per second.
-    atom.animate()
-    time += dt
+    atom = Atom(A, Z)
+    if A >= 4:
+        atom.get_points()
+    atom.get_electron_configuration()
+    atom.build()
+
+    while run:
+        rate(100)  # Number of frames/loops per second.
+        atom.animate()
+        time += dt  # Keeping track of time.
+else:
+    print("Error")

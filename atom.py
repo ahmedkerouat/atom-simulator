@@ -6,16 +6,38 @@ class Atom():
 
     def __init__(self, A, Z):
 
-        self.a = A
-        self.num_charges = Z
-
-        self.nucleons = []
-        self.electrons = []
-
+        file = open("nuclides.txt")
+        informations = file.readlines()
+        data = (informations[Z - 1]).split()
         self.counter = 0
 
+        self.a = A
+        self.num_charges = Z
+        self.stable = "unstable"
+        self.stability = False
+
+        self.electrons = []
+        self.stable_isotops = []
+
+        self.name = data[0]
+        self.symbol = data[1]
+
+        if len(data) > 3:
+            self.stable = "stable"
+
+        if self.stable == "stable":
+            for i in range(3, len(data)):
+                self.stable_isotops.append(data[i])
+        print(self.stable_isotops)
+
+        for i in self.stable_isotops:
+            if int(i) == self.a:
+                self.stability = True
+
+        file.close()
+
     def get_points(self):
-        r = sqrt(self.a) * 0.2
+        r = sqrt(self.a) * 0.15
         best_closest_d = 0
         best_points = []
         points = [(r, 0, 0) for i in range(self.a)]
@@ -73,14 +95,24 @@ class Atom():
         return j + cos(theta) * r, k + sin(theta) * r
 
     def build(self):
-        for _, coords in zip(range(1, self.a + 1), self.best_points):
-            self.counter += 1
-            if self.counter <= self.num_charges:
-                proton = sphere(radius=0.35, color=vector(
-                    1, 0, 0), opacity=1.0, pos=vector(*coords))
-            else:
-                neutron = sphere(radius=0.35, color=vector(
-                    0, 0, 1), opacity=1.0, pos=vector(*coords))
+        if self.a >= 4:
+            for _, coords in zip(range(1, self.a + 1), self.best_points):
+                self.counter += 1
+                if self.counter <= self.num_charges:
+                    proton = sphere(radius=0.35, color=vector(
+                        1, 0, 0), opacity=1.0, pos=vector(*coords))
+                else:
+                    neutron = sphere(radius=0.35, color=vector(
+                        0, 0, 1), opacity=1.0, pos=vector(*coords))
+        else:
+            for i in range(self.a):
+                self.counter += 1
+                if self.counter <= self.num_charges:
+                    proton = sphere(radius=0.35, color=vector(
+                        1, 0, 0), opacity=1.0, pos=vector(i * randint(-1, 1) * 0.13, randint(-1, 1) * 0.12 * i, randint(-1, 1) * 0.1 * i))
+                else:
+                    neutron = sphere(radius=0.35, color=vector(
+                        0, 0, 1), opacity=1.0, pos=vector(i * randint(-1, 1) * 0.12, randint(-1, 1) * 0.13 * i, randint(-1, 1) * 0.1 * i))
 
         conf = self.config_result
         for element in self.orbitals:
