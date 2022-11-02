@@ -28,7 +28,6 @@ class Atom():
         if self.stable == "stable":
             for i in range(3, len(data)):
                 self.stable_isotops.append(data[i])
-        print(self.stable_isotops)
 
         for i in self.stable_isotops:
             if int(i) == self.a:
