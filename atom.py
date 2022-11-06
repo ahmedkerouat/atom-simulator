@@ -11,7 +11,7 @@ class Atom():
         data = (informations[Z - 1]).split()
         self.counter = 0
 
-        self.a = A
+        self.a = A #Number of Nucleons
         self.num_charges = Z
         self.stable = "unstable"
         self.stability = False
@@ -35,7 +35,15 @@ class Atom():
 
         file.close()
 
+
+
     def get_points(self):
+
+        #Avoiding lag
+        if self.a > 20:
+            self.a = round(sqrt(self.a) * 2)
+            self.num_charges = round(sqrt(self.num_charges) * 2)
+
         r = sqrt(self.a) * 0.15
         best_closest_d = 0
         best_points = []
@@ -121,8 +129,8 @@ class Atom():
             r += 1
             for i in range(1, int(h) + 1):
                 xy = self.point(0, 0,
-                                (r * 0.5 * sqrt(self.a)))
-                electron = sphere(radius=0.1, color=vector(
+                                (r * 0.7 * sqrt(self.a)))
+                electron = sphere(radius=(0.1 + 0.03 * sqrt(self.a)), color=vector(
                     1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))
                 self.electrons.append(electron)
 
