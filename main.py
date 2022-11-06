@@ -11,14 +11,15 @@ Z = 3  # Number of charges / Atomic Number
 if 0 < Z <= 118 and type(A) == int and type(Z) == int:
 
     atom = Atom(A, Z)
+    atom.get_electron_configuration()
     if A >= 4:
         atom.get_points()
-    atom.get_electron_configuration()
     atom.build()
+    print(atom.name, atom.symbol, atom.stability, atom.stable_isotops, atom.config_result)
 
     while run:
         rate(100)  # Number of frames/loops per second.
         atom.animate()
-        time += dt  # Keeping track of time.
+        time += dt  # Keeping track of time.*
 else:
     print("Error")
