@@ -8,6 +8,9 @@ time = 0
 A = 6  # Number of nucleons
 Z = 3  # Number of charges / Atomic Number
 
+button( bind=None, text='Click me!' )
+
+
 if 0 < Z <= 118 and type(A) == int and type(Z) == int:
 
     atom = Atom(A, Z)
