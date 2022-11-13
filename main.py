@@ -8,6 +8,9 @@ time = 0
 A = 6  # Number of nucleons
 Z = 3  # Number of charges / Atomic Number
 
+def do_stuff():
+    pass
+
 button( bind=None, text='Click me!' )
 button( bind=None, text='Click me!' )
 button( bind=None, text='Click me!' )
