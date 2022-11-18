@@ -8,12 +8,11 @@ time = 0
 A = 6  # Number of nucleons
 Z = 3  # Number of charges / Atomic Number
 
-wtext(text="\nNeutrons : " + str(A - Z) + "\nProtons : " + str(Z) + "\nElectrons : " + str(Z))
-
 
 if 0 < Z <= 118 and type(A) == int and type(Z) == int:
 
     atom = Atom(A, Z)
+    wtext(text="\nNeutrons : " + str(A - Z) + "\nProtons : " + str(Z) + "\nElectrons : " + str(Z))
     atom.get_electron_configuration()
     if A >= 4:
         atom.get_points()
