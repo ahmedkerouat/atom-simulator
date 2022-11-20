@@ -27,7 +27,6 @@ print(names, symbols, numbers_of_charges)
 if 0 < Z <= 118 and type(A) == int and type(Z) == int:
 
     atom = Atom(A, Z)
-    wtext(text="\nName : "+ atom.name  + "\nNeutrons : " + str(A - Z) + "\nProtons : " + str(Z) + "\nElectrons : " + str(Z))
     menu(choices=names, bind=atom.name, selected=atom.name)
     atom.get_electron_configuration()
     if A >= 4:
