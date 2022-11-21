@@ -20,14 +20,17 @@ for _ in informations:
     names.append(information[0])
     symbols.append(information[1]) 
     numbers_of_charges.append(information[2]) 
-
-print(names, symbols, numbers_of_charges)
-
+file.close()
 
 if 0 < Z <= 118 and type(A) == int and type(Z) == int:
 
     atom = Atom(A, Z)
-    menu(choices=names, bind=atom.name, selected=atom.name)
+    def hello_world():
+        atom.num_charges += 1
+        print(atom.num_charges)
+    menu(choices=names, bind=hello_world, selected=atom.name)
+    menu(choices=symbols, bind=hello_world, selected=atom.symbol)
+    menu(choices=numbers_of_charges, bind=hello_world, selected=str(atom.num_charges))
     atom.get_electron_configuration()
     if A >= 4:
         atom.get_points()
