@@ -25,9 +25,15 @@ file.close()
 if 0 < Z <= 118 and type(A) == int and type(Z) == int:
 
     atom = Atom(A, Z)
+
     def hello_world():
         atom.num_charges += 1
-        print(atom.num_charges)
+        atom.a += 1
+        atom.delete()
+        atom.get_electron_configuration()
+        atom.get_points()
+        atom.build()
+        
     menu(choices=names, bind=hello_world, selected=atom.name)
     menu(choices=symbols, bind=hello_world, selected=atom.symbol)
     menu(choices=numbers_of_charges, bind=hello_world, selected=str(atom.num_charges))
