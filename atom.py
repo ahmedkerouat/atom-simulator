@@ -18,6 +18,7 @@ class Atom():
 
         self.electrons = []
         self.stable_isotops = []
+        self.particles = []
 
         self.name = data[0]
         self.symbol = data[1]
@@ -108,18 +109,22 @@ class Atom():
                 if self.counter <= self.num_charges:
                     proton = sphere(radius=0.35, color=vector(
                         1, 0, 0), opacity=1.0, pos=vector(*coords))
+                    self.particles.append(proton)
                 else:
                     neutron = sphere(radius=0.35, color=vector(
                         0, 0, 1), opacity=1.0, pos=vector(*coords))
+                    self.particles.append(neutron)
         else:
             for i in range(self.a):
                 self.counter += 1
                 if self.counter <= self.num_charges:
                     proton = sphere(radius=0.35, color=vector(
                         1, 0, 0), opacity=1.0, pos=vector(i * randint(-1, 1) * 0.13, randint(-1, 1) * 0.12 * i, randint(-1, 1) * 0.1 * i))
+                    self.particles.append(proton)
                 else:
                     neutron = sphere(radius=0.35, color=vector(
                         0, 0, 1), opacity=1.0, pos=vector(i * randint(-1, 1) * 0.12, randint(-1, 1) * 0.13 * i, randint(-1, 1) * 0.1 * i))
+                    self.particles.append(neutron)
 
         conf = self.config_result
         for element in self.orbitals:
@@ -133,6 +138,13 @@ class Atom():
                 electron = sphere(radius=(0.1 + 0.03 * sqrt(self.a)), color=vector(
                     1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))
                 self.electrons.append(electron)
+                self.particles.append(electron)
+
+    def delete(self):
+        for particle in self.particles:
+            self.counter = 0
+            particle.visible = False
+            del particle
 
     def animate(self):
         for electron in self.electrons:
