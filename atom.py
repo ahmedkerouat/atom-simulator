@@ -6,11 +6,6 @@ class Atom():
 
     def __init__(self, A, Z):
 
-        file = open("nuclides.txt")
-        informations = file.readlines()
-        data = (informations[Z - 1]).split()
-        self.counter = 0
-
         self.a = A #Number of Nucleons
         self.num_charges = Z
         self.stable = "unstable"
@@ -19,6 +14,19 @@ class Atom():
         self.electrons = []
         self.stable_isotops = []
         self.particles = []
+
+        self.name = ""
+        self.symbol = ""
+
+        self.counter = 0
+
+    def get_info(self):
+
+        file = open("nuclides.txt")
+        informations = file.readlines()
+        data = (informations[self.num_charges - 1]).split()
+
+        self.stable_isotops = []
 
         self.name = data[0]
         self.symbol = data[1]
@@ -35,8 +43,6 @@ class Atom():
                 self.stability = True
 
         file.close()
-
-
 
     def get_points(self):
 
@@ -141,6 +147,8 @@ class Atom():
                 self.particles.append(electron)
 
     def delete(self):
+        for electron in self.electrons:
+            electron.clear_trail()
         for particle in self.particles:
             self.counter = 0
             particle.visible = False
