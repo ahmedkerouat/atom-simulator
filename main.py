@@ -25,18 +25,23 @@ file.close()
 if 0 < Z <= 118 and type(A) == int and type(Z) == int:
 
     atom = Atom(A, Z)
+    atom.get_info()
 
-    def hello_world():
-        atom.num_charges += 1
-        atom.a += 1
+    def recreate():
+        atom.num_charges = [i for i,j in enumerate(names) if j == m1.selected][0] + 1
+        atom.get_info()
+        atom.a = int(atom.stable_isotops[0])
+        print(atom.stable_isotops, atom.a)
         atom.delete()
         atom.get_electron_configuration()
-        atom.get_points()
+        if atom.a >= 4:
+            atom.get_points()
         atom.build()
-        
-    menu(choices=names, bind=hello_world, selected=atom.name)
-    menu(choices=symbols, bind=hello_world, selected=atom.symbol)
-    menu(choices=numbers_of_charges, bind=hello_world, selected=str(atom.num_charges))
+
+
+    m1 = menu(choices=names, bind=recreate, selected=atom.name)
+    m2 = menu(choices=symbols, bind=recreate, selected=atom.symbol)
+    m3 = menu(choices=numbers_of_charges, bind=recreate, selected=str(atom.num_charges))
     atom.get_electron_configuration()
     if A >= 4:
         atom.get_points()
