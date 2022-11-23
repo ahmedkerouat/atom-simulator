@@ -7,12 +7,13 @@ class Atom():
     def __init__(self, A, Z):
 
         self.a = A #Number of Nucleons
-        self.num_charges = Z
+        self.z = Z #Charge Number
         self.stable = "unstable"
         self.stability = False
 
         self.electrons = []
         self.stable_isotops = []
+        self.stable_isotops_text = ""
         self.particles = []
 
         self.name = ""
@@ -21,10 +22,12 @@ class Atom():
         self.counter = 0
 
     def get_info(self):
-
+        self.stable = "unstable"
+        self.stability = False
+        self.stable_isotops_text = ""
         file = open("nuclides.txt")
         informations = file.readlines()
-        data = (informations[self.num_charges - 1]).split()
+        data = (informations[self.z - 1]).split()
 
         self.stable_isotops = []
 
@@ -44,12 +47,18 @@ class Atom():
 
         file.close()
 
+        for isotop in self.stable_isotops:
+            self.stable_isotops_text += self.name+"-"+isotop+" "
+        if self.stable == "unstable":
+            self.stable_isotops_text = "None"
+
+
     def get_points(self):
 
         #Avoiding lag
         if self.a > 20:
             self.a = round(sqrt(self.a) * 2)
-            self.num_charges = round(sqrt(self.num_charges) * 2)
+            self.z = round(sqrt(self.z) * 2)
 
         r = sqrt(self.a) * 0.15
         best_closest_d = 0
@@ -89,14 +98,14 @@ class Atom():
         electron_count = 0
         self.result = []
         for i in self.orbitals:
-            if electron_count < self.num_charges:
+            if electron_count < self.z:
                 orbital = "".join(j for j in i if j in 'spdf')
                 self.result.append(i+str(possible_electrons[orbital]))
                 electron_count += possible_electrons[orbital]
             else:
                 break
-        if electron_count > self.num_charges:
-            dif = electron_count - self.num_charges
+        if electron_count > self.z:
+            dif = electron_count - self.z
             last_electron_pos = self.result[-1].find(orbital)+1
             last_electrons = int(self.result[-1][last_electron_pos:])
             new_num = last_electrons - dif
@@ -112,7 +121,7 @@ class Atom():
         if self.a >= 4:
             for _, coords in zip(range(1, self.a + 1), self.best_points):
                 self.counter += 1
-                if self.counter <= self.num_charges:
+                if self.counter <= self.z:
                     proton = sphere(radius=0.35, color=vector(
                         1, 0, 0), opacity=1.0, pos=vector(*coords))
                     self.particles.append(proton)
@@ -123,7 +132,7 @@ class Atom():
         else:
             for i in range(self.a):
                 self.counter += 1
-                if self.counter <= self.num_charges:
+                if self.counter <= self.z:
                     proton = sphere(radius=0.35, color=vector(
                         1, 0, 0), opacity=1.0, pos=vector(i * randint(-1, 1) * 0.13, randint(-1, 1) * 0.12 * i, randint(-1, 1) * 0.1 * i))
                     self.particles.append(proton)
