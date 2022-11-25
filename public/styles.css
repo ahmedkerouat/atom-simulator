@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400&family=Mukta:wght@200&family=Raleway:wght@700&display=swap");
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background-color: black;
+  color:white;
+}
+
+h1{
+    font-family: "Mukta", sans-serif;
+    letter-spacing: 8px;
+    text-align: center;
+    top: 10px;
+}
+select{
+    border: none;
+    background-color: #0c0c0c;
+}
+.glowscript-canvas-wrapper{
+    top:30rem;
+}
+canvas{
+    top:30rem;
+}
+
