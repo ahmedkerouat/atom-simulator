@@ -16,6 +16,7 @@ This project allows the user to simulate the 118 known elements according to the
     * You can either run the main Python file or the HTML file.
 * On the web :
     * You can simply access the GitHub Page.
+        * https://ahmedkerouat.github.io/atom-simulator/
 
 ### Python Requirement:
 * `pip install vpython`
