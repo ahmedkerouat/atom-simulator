@@ -1,6 +1,6 @@
 # Atom Simulator
 This project allows the user to simulate the 118 known elements according to the Bohr Model.
-![atomsim](public/imgs/atom_simulator.png) 
+![atomsim](docs/imgs/atom_simulator.png) 
 ## Features
 * Animate electrons orbiting around the nucleus.
 * Check the stability of any given atom.
@@ -27,11 +27,11 @@ This project allows the user to simulate the 118 known elements according to the
 * Move around : Shift + Left Mouse Button & Drag.
 * Risize Window : Drag the icon located on the lower right side of the canvas.
 ## Screenshots
-![atomsim1](public/imgs/2022-11-26_11-11_1.png) 
+![atomsim1](docs/imgs/2022-11-26_11-11_1.png) 
 
-![atomsim2](public/imgs/2022-11-26_11-12.png) 
+![atomsim2](docs/imgs/2022-11-26_11-12.png) 
 
-![atomsim3](public/imgs/2022-11-26_11-15.png) 
+![atomsim3](docs/imgs/2022-11-26_11-15.png) 
 
-![atomsim4](public/imgs/2022-11-26_11-19.png) 
+![atomsim4](docs/imgs/2022-11-26_11-19.png) 
  
