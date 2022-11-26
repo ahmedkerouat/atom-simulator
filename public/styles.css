@@ -11,18 +11,15 @@
 h1{
     font-family: "Mukta", sans-serif;
     letter-spacing: 8px;
-    text-align: center;
     top: 10px;
+    text-align:end;
 }
 select{
     border: none;
     background-color: #0c0c0c;
 }
-.glowscript-canvas-wrapper{
 
+div{
+    font-size: 15px;
+    text-align: center;
 }
-
-canvas{
-
-}
-
