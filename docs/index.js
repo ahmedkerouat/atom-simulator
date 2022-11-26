@@ -334,6 +334,10 @@
             self.symbol = "";
             "39";
             self.counter = 0;
+            "41";
+            self.temp_a = self.a;
+            "42";
+            self.temp_z = self.z;
         };
         if (!Atom.prototype.__init__.__argnames__) Object.defineProperties(Atom.prototype.__init__, {
             __argnames__ : {value: ["A", "Z"]},
@@ -344,60 +348,60 @@
         Atom.prototype.get_info = async function get_info() {
             var self = this;
             var ρσ_ls, informations, data, i, isotop;
-            "42";
-            self.stable = "unstable";
-            "43";
-            self.stability = false;
-            "44";
-            self.stable_isotops_text = "";
             "45";
-            informations = NUCLIDES;
+            self.stable = "unstable";
             "46";
-            data = (await split(ρσ_getitem(informations, self.z["-"](1["*"](1)))));
+            self.stability = false;
             "47";
-            self.stable_isotops = ρσ_list_decorate([]);
+            self.stable_isotops_text = "";
+            "48";
+            informations = NUCLIDES;
             "49";
-            self.name = ρσ_getitem(data, 0);
+            data = (await split(ρσ_getitem(informations, self.z["-"](1["*"](1)))));
             "50";
-            self.symbol = ρσ_getitem(data, 1);
+            self.stable_isotops = ρσ_list_decorate([]);
             "52";
+            self.name = ρσ_getitem(data, 0);
+            "53";
+            self.symbol = ρσ_getitem(data, 1);
+            "55";
             if (len(data)[">"](3)) {
-                "53";
+                "56";
                 self.stable = "stable";
-                "55";
+                "58";
             }
             if ((self.stable === "stable" || typeof self.stable === "object" && ρσ_equals(self.stable, "stable"))) {
-                "56";
+                "59";
                 var ρσ_Iter7 = range(3, len(data));
                 ρσ_Iter7 = ((typeof ρσ_Iter7[Symbol.iterator] === "function") ? (ρσ_Iter7 instanceof Map ? ρσ_Iter7.keys() : ρσ_Iter7) : Object.keys(ρσ_Iter7));
                 for (var ρσ_Index7 of ρσ_Iter7) {
                     i = ρσ_Index7;
-                    "57";
+                    "60";
                     self.stable_isotops.append(ρσ_getitem(data, i));
                 }
             }
-            "59";
+            "62";
             var ρσ_Iter8 = self.stable_isotops;
             ρσ_Iter8 = ((typeof ρσ_Iter8[Symbol.iterator] === "function") ? (ρσ_Iter8 instanceof Map ? ρσ_Iter8.keys() : ρσ_Iter8) : Object.keys(ρσ_Iter8));
             for (var ρσ_Index8 of ρσ_Iter8) {
                 i = ρσ_Index8;
-                "60";
+                "63";
                 if (ρσ_equals(int(i), self.a)) {
-                    "61";
+                    "64";
                     self.stability = true;
                 }
             }
-            "64";
+            "67";
             var ρσ_Iter9 = self.stable_isotops;
             ρσ_Iter9 = ((typeof ρσ_Iter9[Symbol.iterator] === "function") ? (ρσ_Iter9 instanceof Map ? ρσ_Iter9.keys() : ρσ_Iter9) : Object.keys(ρσ_Iter9));
             for (var ρσ_Index9 of ρσ_Iter9) {
                 isotop = ρσ_Index9;
-                "65";
+                "68";
                 self.stable_isotops_text=self.stable_isotops_text["+"](self.name["+"]("-")["+"](isotop)["+"](" "));
-                "66";
+                "69";
             }
             if ((self.stable === "unstable" || typeof self.stable === "object" && ρσ_equals(self.stable, "unstable"))) {
-                "67";
+                "70";
                 self.stable_isotops_text = "None";
             }
         };
@@ -407,22 +411,26 @@
         Atom.prototype.get_points = async function get_points() {
             var self = this;
             var ρσ_ls, r, best_closest_d, best_points, points, i, x, y, z, closest_dist, closest_index, p1, p2, x1, y1, z1, x2, y2, z2, d, j, simulation;
-            "73";
-            if (self.a[">"](20)) {
-                "74";
-                self.a = round(sqrt(self.a)["*"](2));
-                "75";
-                self.z = round(sqrt(self.z)["*"](2));
-            }
-            "77";
-            r = sqrt(self.a)["*"](.15);
-            "78";
-            best_closest_d = 0;
+            "75";
+            self.temp_a = self.a;
+            "76";
+            self.temp_z = self.z;
             "79";
+            if (self.a[">"](20)) {
+                "80";
+                self.temp_a = round(sqrt(self.a)["*"](2));
+                "81";
+                self.temp_z = round(sqrt(self.z)["*"](2));
+            }
+            "83";
+            r = sqrt(self.temp_a)["*"](.15);
+            "84";
+            best_closest_d = 0;
+            "85";
             best_points = ρσ_list_decorate([]);
-            "80";
+            "86";
             points = (function() {
-                var ρσ_Iter = range(self.a), ρσ_Result = [], i;
+                var ρσ_Iter = range(self.temp_a), ρσ_Result = [], i;
                 ρσ_Iter = ((typeof ρσ_Iter[Symbol.iterator] === "function") ? (ρσ_Iter instanceof Map ? ρσ_Iter.keys() : ρσ_Iter) : Object.keys(ρσ_Iter));
                 for (var ρσ_Index of ρσ_Iter) {
                     i = ρσ_Index;
@@ -431,84 +439,84 @@
                 ρσ_Result = ρσ_list_constructor(ρσ_Result);
                 return ρσ_Result;
             })();
-            "81";
+            "87";
             for (var ρσ_Index10 = 0; ρσ_Index10["<"](1e4); ρσ_Index10++) {
                 simulation = ρσ_Index10;
-                "82";
+                "88";
                 x = random()["*"](r);
-                "83";
+                "89";
                 y = random()["*"](r);
-                "84";
+                "90";
                 z = r["-"](1["*"](Math.pow((Math.pow(x, 2)["+"](Math.pow(y, 2))), .5)));
-                "85";
+                "91";
                 if ((await randint(0, 1))) {
-                    "86";
+                    "92";
                     x = 1["-u"]()["*"](x);
-                    "87";
+                    "93";
                 }
                 if ((await randint(0, 1))) {
-                    "88";
+                    "94";
                     y = 1["-u"]()["*"](y);
-                    "89";
+                    "95";
                 }
                 if ((await randint(0, 1))) {
-                    "90";
+                    "96";
                     z = 1["-u"]()["*"](z);
                 }
-                "91";
+                "97";
                 closest_dist = Math.pow((2["*"](r)), 2);
-                "92";
+                "98";
                 closest_index = null;
-                "93";
-                for (var ρσ_Index11 = 0; ρσ_Index11["<"](self.a); ρσ_Index11++) {
+                "99";
+                for (var ρσ_Index11 = 0; ρσ_Index11["<"](self.temp_a); ρσ_Index11++) {
                     i = ρσ_Index11;
-                    "94";
-                    for (var ρσ_Index12 = 0; ρσ_Index12["<"](self.a); ρσ_Index12++) {
+                    "100";
+                    for (var ρσ_Index12 = 0; ρσ_Index12["<"](self.temp_a); ρσ_Index12++) {
                         j = ρσ_Index12;
-                        "95";
+                        "101";
                         if ((i === j || typeof i === "object" && ρσ_equals(i, j))) {
-                            "96";
+                            "102";
                             continue;
                         }
-                        "97";
-                        p1 = ρσ_getitem(points, i);
-                        "98";
-                        p2 = ρσ_getitem(points, j);
-                        "99";
-                        x1 = ρσ_getitem(p1, 0);
-                        "100";
-                        y1 = ρσ_getitem(p1, 1);
-                        "101";
-                        z1 = ρσ_getitem(p1, 2);
-                        "102";
-                        x2 = ρσ_getitem(p2, 0);
                         "103";
-                        y2 = ρσ_getitem(p2, 1);
+                        p1 = ρσ_getitem(points, i);
                         "104";
-                        z2 = ρσ_getitem(p2, 2);
+                        p2 = ρσ_getitem(points, j);
                         "105";
-                        d = Math.pow((x1["-"](1["*"](x2))), 2)["+"](Math.pow((y1["-"](1["*"](y2))), 2))["+"](Math.pow((z1["-"](1["*"](z2))), 2));
+                        x1 = ρσ_getitem(p1, 0);
                         "106";
+                        y1 = ρσ_getitem(p1, 1);
+                        "107";
+                        z1 = ρσ_getitem(p1, 2);
+                        "108";
+                        x2 = ρσ_getitem(p2, 0);
+                        "109";
+                        y2 = ρσ_getitem(p2, 1);
+                        "110";
+                        z2 = ρσ_getitem(p2, 2);
+                        "111";
+                        d = Math.pow((x1["-"](1["*"](x2))), 2)["+"](Math.pow((y1["-"](1["*"](y2))), 2))["+"](Math.pow((z1["-"](1["*"](z2))), 2));
+                        "112";
                         if (d["<"](closest_dist)) {
-                            "107";
+                            "113";
                             closest_dist = d;
-                            "108";
+                            "114";
                             closest_index = i;
-                            "109";
+                            "115";
                         }
                     }
                 }
                 if (closest_dist[">"](best_closest_d)) {
-                    "110";
+                    "116";
                     best_closest_d = closest_dist;
-                    "111";
+                    "117";
                     self.best_points = points.slice(0);
                 }
-                "112";
+                "118";
                 ρσ_setitem(ρσ_getitem(points, closest_index), 0, x);
-                "113";
+                "119";
                 ρσ_setitem(ρσ_getitem(points, closest_index), 1, y);
-                "114";
+                "120";
                 ρσ_setitem(ρσ_getitem(points, closest_index), 2, z);
             }
         };
@@ -518,22 +526,22 @@
         Atom.prototype.get_electron_configuration = async function get_electron_configuration() {
             var self = this;
             var ρσ_ls, possible_electrons, electron_count, orbital, i, dif, last_electron_pos, last_electrons, new_num;
-            "117";
+            "123";
             self.orbitals = (await split("1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p 7s 5f 6d 7p 6f 7d 7f"));
-            "118";
+            "124";
             possible_electrons = ρσ_interpolate_kwargs.call(this, dict, [ρσ_desugar_kwargs({s: 2, p: 6, d: 10, f: 14})]);
-            "119";
+            "125";
             electron_count = 0;
-            "120";
+            "126";
             self.result = ρσ_list_decorate([]);
-            "121";
+            "127";
             var ρσ_Iter13 = self.orbitals;
             ρσ_Iter13 = ((typeof ρσ_Iter13[Symbol.iterator] === "function") ? (ρσ_Iter13 instanceof Map ? ρσ_Iter13.keys() : ρσ_Iter13) : Object.keys(ρσ_Iter13));
             for (var ρσ_Index13 of ρσ_Iter13) {
                 i = ρσ_Index13;
-                "122";
+                "128";
                 if (electron_count["<"](self.z)) {
-                    "123";
+                    "129";
                     orbital = "".join((function() {
                         function* js_generator() {
                             var ρσ_Iter = i, j;
@@ -550,30 +558,30 @@
                         result.send = result.next;
                         return result;
                     })());
-                    "124";
+                    "130";
                     self.result.append(i["+"](str(ρσ_getitem(possible_electrons, orbital))));
-                    "125";
+                    "131";
                     electron_count=electron_count["+"](ρσ_getitem(possible_electrons, orbital));
-                    "126";
+                    "132";
                 } else {
-                    "127";
+                    "133";
                     break;
-                    "128";
+                    "134";
                 }
             }
             if (electron_count[">"](self.z)) {
-                "129";
+                "135";
                 dif = electron_count["-"](1["*"](self.z));
-                "130";
+                "136";
                 last_electron_pos = ρσ_getitem(self.result, 1["-u"]()["*"](1)).find(orbital)["+"](1);
-                "131";
+                "137";
                 last_electrons = int(ρσ_getitem(self.result, 1["-u"]()["*"](1)).slice(last_electron_pos));
-                "132";
+                "138";
                 new_num = last_electrons["-"](1["*"](dif));
-                "134";
+                "140";
                 ρσ_setitem(self.result, 1["-u"]()["*"](1), ρσ_getitem(self.result, 1["-u"]()["*"](1)).slice(0, last_electron_pos)["+"](str(new_num)));
             }
-            "135";
+            "141";
             self.config_result = " ".join(self.result);
         };
         if (!Atom.prototype.get_electron_configuration.__module__) Object.defineProperties(Atom.prototype.get_electron_configuration, {
@@ -582,9 +590,9 @@
         Atom.prototype.point = async function point(j, k, r) {
             var self = this;
             var ρσ_ls, theta;
-            "138";
+            "144";
             theta = random()["*"](3)["*"](pi);
-            "139";
+            "145";
             return [j["+"](cos(theta)["*"](r)), k["+"](sin(theta)["*"](r))];
         };
         if (!Atom.prototype.point.__argnames__) Object.defineProperties(Atom.prototype.point, {
@@ -594,84 +602,84 @@
         Atom.prototype.build = async function build() {
             var self = this;
             var ρσ_ls, proton, neutron, ρσ_unpack, _, coords, i, conf, element, r, xy, electron, h;
-            "142";
+            "148";
             if (self.a[">="](4)) {
-                "143";
-                var ρσ_Iter14 = (await zip(range(1, self.a["+"](1)), self.best_points));
+                "149";
+                var ρσ_Iter14 = (await zip(range(1, self.temp_a["+"](1)), self.best_points));
                 ρσ_Iter14 = ((typeof ρσ_Iter14[Symbol.iterator] === "function") ? (ρσ_Iter14 instanceof Map ? ρσ_Iter14.keys() : ρσ_Iter14) : Object.keys(ρσ_Iter14));
                 for (var ρσ_Index14 of ρσ_Iter14) {
                     ρσ_unpack = ρσ_Index14;
                     _ = ρσ_unpack[0];
                     coords = ρσ_unpack[1];
-                    "144";
+                    "150";
                     self.counter=self.counter["+"](1);
-                    "145";
-                    if (self.counter["<="](self.z)) {
-                        "146";
-                        proton = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .35, color: vector(1, 0, 0), opacity: 1, pos: vector.apply(this, coords)})]);
-                        "148";
-                        self.particles.append(proton);
-                        "149";
-                    } else {
-                        "150";
-                        neutron = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .35, color: vector(0, 0, 1), opacity: 1, pos: vector.apply(this, coords)})]);
+                    "151";
+                    if (self.counter["<="](self.temp_z)) {
                         "152";
+                        proton = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .35, color: vector(1, 0, 0), opacity: 1, pos: vector.apply(this, coords)})]);
+                        "154";
+                        self.particles.append(proton);
+                        "155";
+                    } else {
+                        "156";
+                        neutron = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .35, color: vector(0, 0, 1), opacity: 1, pos: vector.apply(this, coords)})]);
+                        "158";
                         self.particles.append(neutron);
-                        "153";
+                        "159";
                     }
                 }
             } else {
-                "154";
-                for (var ρσ_Index15 = 0; ρσ_Index15["<"](self.a); ρσ_Index15++) {
+                "160";
+                for (var ρσ_Index15 = 0; ρσ_Index15["<"](self.temp_a); ρσ_Index15++) {
                     i = ρσ_Index15;
-                    "155";
+                    "161";
                     self.counter=self.counter["+"](1);
-                    "156";
-                    if (self.counter["<="](self.z)) {
-                        "157";
-                        proton = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .35, color: vector(1, 0, 0), opacity: 1, pos: vector(i["*"]((await randint(1["-u"]()["*"](1), 1)))["*"](.13), (await randint(1["-u"]()["*"](1), 1))["*"](.12)["*"](i), (await randint(1["-u"]()["*"](1), 1))["*"](.1)["*"](i))})]);
-                        "159";
-                        self.particles.append(proton);
-                        "160";
-                    } else {
-                        "161";
-                        neutron = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .35, color: vector(0, 0, 1), opacity: 1, pos: vector(i["*"]((await randint(1["-u"]()["*"](1), 1)))["*"](.12), (await randint(1["-u"]()["*"](1), 1))["*"](.13)["*"](i), (await randint(1["-u"]()["*"](1), 1))["*"](.1)["*"](i))})]);
+                    "162";
+                    if (self.counter["<="](self.temp_z)) {
                         "163";
+                        proton = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .35, color: vector(1, 0, 0), opacity: 1, pos: vector(i["*"]((await randint(1["-u"]()["*"](1), 1)))["*"](.13), (await randint(1["-u"]()["*"](1), 1))["*"](.12)["*"](i), (await randint(1["-u"]()["*"](1), 1))["*"](.1)["*"](i))})]);
+                        "165";
+                        self.particles.append(proton);
+                        "166";
+                    } else {
+                        "167";
+                        neutron = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .35, color: vector(0, 0, 1), opacity: 1, pos: vector(i["*"]((await randint(1["-u"]()["*"](1), 1)))["*"](.12), (await randint(1["-u"]()["*"](1), 1))["*"](.13)["*"](i), (await randint(1["-u"]()["*"](1), 1))["*"](.1)["*"](i))})]);
+                        "169";
                         self.particles.append(neutron);
                     }
                 }
             }
-            "165";
+            "171";
             conf = self.config_result;
-            "166";
+            "172";
             var ρσ_Iter16 = self.orbitals;
             ρσ_Iter16 = ((typeof ρσ_Iter16[Symbol.iterator] === "function") ? (ρσ_Iter16 instanceof Map ? ρσ_Iter16.keys() : ρσ_Iter16) : Object.keys(ρσ_Iter16));
             for (var ρσ_Index16 of ρσ_Iter16) {
                 element = ρσ_Index16;
-                "167";
+                "173";
                 conf = conf.__GSrep(element, "");
             }
-            "168";
+            "174";
             r = 0;
-            "169";
+            "175";
             var ρσ_Iter17 = (await split(conf));
             ρσ_Iter17 = ((typeof ρσ_Iter17[Symbol.iterator] === "function") ? (ρσ_Iter17 instanceof Map ? ρσ_Iter17.keys() : ρσ_Iter17) : Object.keys(ρσ_Iter17));
             for (var ρσ_Index17 of ρσ_Iter17) {
                 h = ρσ_Index17;
-                "170";
+                "176";
                 r=r["+"](1);
-                "171";
+                "177";
                 var ρσ_Iter18 = range(1, int(h)["+"](1));
                 ρσ_Iter18 = ((typeof ρσ_Iter18[Symbol.iterator] === "function") ? (ρσ_Iter18 instanceof Map ? ρσ_Iter18.keys() : ρσ_Iter18) : Object.keys(ρσ_Iter18));
                 for (var ρσ_Index18 of ρσ_Iter18) {
                     i = ρσ_Index18;
-                    "172";
+                    "178";
                     xy = (await self.point(0, 0, r["*"](.7)["*"](sqrt(self.a))));
-                    "174";
+                    "180";
                     electron = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .1["+"](.03["*"](sqrt(self.a))), color: vector(1, 1, 0), make_trail: true, retain: 300, trail_color: vector(1, 1, 1), opacity: 1, pos: vector.apply(this, xy.concat([0]))})]);
-                    "176";
+                    "182";
                     self.electrons.append(electron);
-                    "177";
+                    "183";
                     self.particles.append(electron);
                 }
             }
@@ -682,24 +690,24 @@
         Atom.prototype.nuke = async function nuke() {
             var self = this;
             var ρσ_ls, electron, particle;
-            "180";
+            "186";
             var ρσ_Iter19 = self.electrons;
             ρσ_Iter19 = ((typeof ρσ_Iter19[Symbol.iterator] === "function") ? (ρσ_Iter19 instanceof Map ? ρσ_Iter19.keys() : ρσ_Iter19) : Object.keys(ρσ_Iter19));
             for (var ρσ_Index19 of ρσ_Iter19) {
                 electron = ρσ_Index19;
-                "181";
+                "187";
                 electron.clear_trail();
             }
-            "182";
+            "188";
             var ρσ_Iter20 = self.particles;
             ρσ_Iter20 = ((typeof ρσ_Iter20[Symbol.iterator] === "function") ? (ρσ_Iter20 instanceof Map ? ρσ_Iter20.keys() : ρσ_Iter20) : Object.keys(ρσ_Iter20));
             for (var ρσ_Index20 of ρσ_Iter20) {
                 particle = ρσ_Index20;
-                "183";
+                "189";
                 self.counter = 0;
-                "184";
+                "190";
                 particle.visible = false;
-                "185";
+                "191";
                 particle = undefined;
             }
         };
@@ -709,18 +717,18 @@
         Atom.prototype.animate = async function animate() {
             var self = this;
             var ρσ_ls, r, g, electron;
-            "188";
+            "194";
             var ρσ_Iter21 = self.electrons;
             ρσ_Iter21 = ((typeof ρσ_Iter21[Symbol.iterator] === "function") ? (ρσ_Iter21 instanceof Map ? ρσ_Iter21.keys() : ρσ_Iter21) : Object.keys(ρσ_Iter21));
             for (var ρσ_Index21 of ρσ_Iter21) {
                 electron = ρσ_Index21;
-                "190";
-                r = sqrt(electron.pos.x["*"](electron.pos.x)["+"](electron.pos.y["*"](electron.pos.y)));
-                "193";
-                g = atan2(electron.pos.y, electron.pos.x);
-                "195";
-                electron.pos.x = r["*"](cos(.02["+"](g)));
                 "196";
+                r = sqrt(electron.pos.x["*"](electron.pos.x)["+"](electron.pos.y["*"](electron.pos.y)));
+                "199";
+                g = atan2(electron.pos.y, electron.pos.x);
+                "201";
+                electron.pos.x = r["*"](cos(.02["+"](g)));
+                "202";
                 electron.pos.y = r["*"](sin(.02["+"](g)));
             }
         };
@@ -743,60 +751,60 @@
         
         
     
-        "198";
+        "204";
         run = true;
-        "199";
-        dt = 100;
-        "200";
-        time = 0;
-        "202";
-        A = 1;
-        "203";
-        Z = 1;
         "205";
-        names = ρσ_list_decorate([]);
+        dt = 100;
         "206";
-        symbols = ρσ_list_decorate([]);
-        "207";
-        charges = ρσ_list_decorate([]);
+        time = 0;
         "208";
-        menus = ρσ_list_decorate([]);
+        A = 1;
         "209";
+        Z = 1;
+        "211";
+        names = ρσ_list_decorate([]);
+        "212";
+        symbols = ρσ_list_decorate([]);
+        "213";
+        charges = ρσ_list_decorate([]);
+        "214";
+        menus = ρσ_list_decorate([]);
+        "215";
         neutrons_list = ρσ_list_decorate([]);
-        "210";
+        "216";
         for (var ρσ_Index22 = 0; ρσ_Index22["<"](250); ρσ_Index22++) {
             i = ρσ_Index22;
-            "211";
+            "217";
             neutrons_list.append(str(i));
         }
-        "213";
+        "219";
         informations = NUCLIDES;
-        "215";
+        "221";
         var ρσ_Iter23 = informations;
         ρσ_Iter23 = ((typeof ρσ_Iter23[Symbol.iterator] === "function") ? (ρσ_Iter23 instanceof Map ? ρσ_Iter23.keys() : ρσ_Iter23) : Object.keys(ρσ_Iter23));
         for (var ρσ_Index23 of ρσ_Iter23) {
             _ = ρσ_Index23;
-            "216";
+            "222";
             information = (await split(_));
-            "217";
+            "223";
             names.append(ρσ_getitem(information, 0));
-            "218";
+            "224";
             symbols.append(ρσ_getitem(information, 1));
-            "219";
+            "225";
             charges.append(ρσ_getitem(information, 2));
         }
-        "221";
+        "227";
         _GS_1 = new Atom;
         (await _GS_1.__init__(A, Z));
         atom = _GS_1;
-        "222";
+        "228";
         (await atom.get_info());
-        "223";
+        "229";
         (await atom.get_electron_configuration());
-        "226";
+        "232";
         async function recreate(menu) {
             var ρσ_ls, i;
-            "227";
+            "233";
             atom.z = ρσ_getitem((function() {
                 var ρσ_Iter = enumerate(menu.choices), ρσ_Result = [], i, j;
                 ρσ_Iter = ((typeof ρσ_Iter[Symbol.iterator] === "function") ? (ρσ_Iter instanceof Map ? ρσ_Iter.keys() : ρσ_Iter) : Object.keys(ρσ_Iter));
@@ -811,50 +819,50 @@
                 ρσ_Result = ρσ_list_constructor(ρσ_Result);
                 return ρσ_Result;
             })(), 0)["+"](1);
-            "228";
+            "234";
             var ρσ_Iter24 = menus;
             ρσ_Iter24 = ((typeof ρσ_Iter24[Symbol.iterator] === "function") ? (ρσ_Iter24 instanceof Map ? ρσ_Iter24.keys() : ρσ_Iter24) : Object.keys(ρσ_Iter24));
             for (var ρσ_Index24 of ρσ_Iter24) {
                 menu = ρσ_Index24;
-                "229";
+                "235";
                 menu.selected = str(ρσ_getitem(menu.choices, atom.z["-"](1["*"](1))));
             }
-            "230";
+            "236";
             (await atom.get_electron_configuration());
-            "231";
+            "237";
             (await atom.get_info());
-            "232";
+            "238";
             if ((atom.stable === "stable" || typeof atom.stable === "object" && ρσ_equals(atom.stable, "stable"))) {
-                "233";
+                "239";
                 atom.a = int(ρσ_getitem(atom.stable_isotops, 0));
-                "234";
+                "240";
             } else {
-                "235";
+                "241";
                 atom.a = atom.z["*"](2);
             }
-            "236";
+            "242";
             var ρσ_Iter25 = atom.stable_isotops;
             ρσ_Iter25 = ((typeof ρσ_Iter25[Symbol.iterator] === "function") ? (ρσ_Iter25 instanceof Map ? ρσ_Iter25.keys() : ρσ_Iter25) : Object.keys(ρσ_Iter25));
             for (var ρσ_Index25 of ρσ_Iter25) {
                 i = ρσ_Index25;
-                "237";
+                "243";
                 if (ρσ_equals(int(i), atom.a)) {
-                    "238";
+                    "244";
                     atom.stability = true;
                 }
             }
-            "239";
+            "245";
             m4.selected = str(atom.a["-"](1["*"](atom.z)));
-            "240";
+            "246";
             t1.text = "\n\nElectron Configuration: "["+"](atom.config_result)["+"]("\n\nStable: ")["+"](str(atom.stability))["+"]("\n\nStable Isotops: ")["+"](atom.stable_isotops_text);
-            "241";
+            "247";
             (await atom.nuke());
-            "242";
+            "248";
             if (atom.a[">="](4)) {
-                "243";
+                "249";
                 (await atom.get_points());
             }
-            "244";
+            "250";
             (await atom.build());
         };
         if (!recreate.__argnames__) Object.defineProperties(recreate, {
@@ -862,24 +870,24 @@
             __module__ : {value: null}
         });
     
-        "246";
+        "252";
         async function neutron_slider(menu) {
-            "247";
+            "253";
             atom.a = atom.z["+"](int(menu.selected));
-            "248";
+            "254";
             (await atom.get_info());
-            "249";
+            "255";
             t1.text = "\n\nElectron Configuration: "["+"](atom.config_result)["+"]("\n\nStable: ")["+"](str(atom.stability))["+"]("\n\nStable Isotops: ")["+"](atom.stable_isotops_text);
-            "250";
+            "256";
             (await atom.nuke());
-            "251";
+            "257";
             (await atom.get_electron_configuration());
-            "252";
+            "258";
             if (atom.a[">="](4)) {
-                "253";
+                "259";
                 (await atom.get_points());
             }
-            "254";
+            "260";
             (await atom.build());
         };
         if (!neutron_slider.__argnames__) Object.defineProperties(neutron_slider, {
@@ -887,40 +895,40 @@
             __module__ : {value: null}
         });
     
-        "256";
-        scene.append_to_caption("\n\n Name: ");
-        "257";
-        m1 = ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: names, bind: recreate, selected: atom.name})]);
-        "258";
-        scene.append_to_caption("\n\nSymbol: ");
-        "259";
-        m2 = ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: symbols, bind: recreate, selected: atom.symbol})]);
-        "260";
-        scene.append_to_caption("\n\nAtomic Number: ");
-        "261";
-        m3 = ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: charges, bind: recreate, selected: str(atom.z)})]);
         "262";
-        scene.append_to_caption("\n\nNeutron Number: ");
+        scene.append_to_caption("\n\n Name: ");
         "263";
-        m4 = ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: neutrons_list, bind: neutron_slider, selected: str(atom.a["-"](1["*"](atom.z)))})]);
+        m1 = ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: names, bind: recreate, selected: atom.name})]);
         "264";
-        t1 = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "\n\nElectron Configuration: "["+"](atom.config_result)["+"]("\n\nStable: ")["+"](str(atom.stability))["+"]("\n\nStable Isotops: ")["+"](atom.stable_isotops_text)})]);
+        scene.append_to_caption("\n\nSymbol: ");
+        "265";
+        m2 = ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: symbols, bind: recreate, selected: atom.symbol})]);
         "266";
-        menus = ρσ_list_decorate([ m1, m2, m3 ]);
+        scene.append_to_caption("\n\nAtomic Number: ");
+        "267";
+        m3 = ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: charges, bind: recreate, selected: str(atom.z)})]);
         "268";
+        scene.append_to_caption("\n\nNeutron Number: ");
+        "269";
+        m4 = ρσ_interpolate_kwargs.call(this, menu, [ρσ_desugar_kwargs({choices: neutrons_list, bind: neutron_slider, selected: str(atom.a["-"](1["*"](atom.z)))})]);
+        "270";
+        t1 = ρσ_interpolate_kwargs.call(this, wtext, [ρσ_desugar_kwargs({text: "\n\nElectron Configuration: "["+"](atom.config_result)["+"]("\n\nStable: ")["+"](str(atom.stability))["+"]("\n\nStable Isotops: ")["+"](atom.stable_isotops_text)})]);
+        "272";
+        menus = ρσ_list_decorate([ m1, m2, m3 ]);
+        "274";
         if (A[">="](4)) {
-            "269";
+            "275";
             (await atom.get_points());
         }
-        "270";
+        "276";
         (await atom.build());
-        "272";
+        "278";
         while (run) {
-            "273";
+            "279";
             (await rate(100));
-            "274";
+            "280";
             (await atom.animate());
-            "275";
+            "281";
             time=time["+"](dt);
         }
     };

@@ -21,6 +21,9 @@ class Atom():
 
         self.counter = 0
 
+        self.temp_a = self.a
+        self.temp_z = self.z
+
     def get_info(self):
         self.stable = "unstable"
         self.stability = False
@@ -55,15 +58,18 @@ class Atom():
 
     def get_points(self):
 
+        self.temp_a = self.a
+        self.temp_z = self.z
+
         #Avoiding lag
         if self.a > 20:
-            self.a = round(sqrt(self.a) * 2)
-            self.z = round(sqrt(self.z) * 2)
+            self.temp_a = round(sqrt(self.a) * 2)
+            self.temp_z = round(sqrt(self.z) * 2)
 
-        r = sqrt(self.a) * 0.15
+        r = sqrt(self.temp_a) * 0.15
         best_closest_d = 0
         best_points = []
-        points = [(r, 0, 0) for i in range(self.a)]
+        points = [(r, 0, 0) for i in range(self.temp_a)]
         for simulation in range(10000):
             x = random()*r
             y = random()*r
@@ -76,8 +82,8 @@ class Atom():
                 z = -z
             closest_dist = (2*r)**2
             closest_index = None
-            for i in range(self.a):
-                for j in range(self.a):
+            for i in range(self.temp_a):
+                for j in range(self.temp_a):
                     if i == j:
                         continue
                     p1, p2 = points[i], points[j]
@@ -119,9 +125,9 @@ class Atom():
 
     def build(self):
         if self.a >= 4:
-            for _, coords in zip(range(1, self.a + 1), self.best_points):
+            for _, coords in zip(range(1, self.temp_a + 1), self.best_points):
                 self.counter += 1
-                if self.counter <= self.z:
+                if self.counter <= self.temp_z:
                     proton = sphere(radius=0.35, color=vector(
                         1, 0, 0), opacity=1.0, pos=vector(*coords))
                     self.particles.append(proton)
@@ -130,9 +136,9 @@ class Atom():
                         0, 0, 1), opacity=1.0, pos=vector(*coords))
                     self.particles.append(neutron)
         else:
-            for i in range(self.a):
+            for i in range(self.temp_a):
                 self.counter += 1
-                if self.counter <= self.z:
+                if self.counter <= self.temp_z:
                     proton = sphere(radius=0.35, color=vector(
                         1, 0, 0), opacity=1.0, pos=vector(i * randint(-1, 1) * 0.13, randint(-1, 1) * 0.12 * i, randint(-1, 1) * 0.1 * i))
                     self.particles.append(proton)
