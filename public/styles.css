@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400&family=Mukta:wght@200&family=Raleway:wght@700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Mukta:wght@200&&display=swap");
 
 * {
   box-sizing: border-box;
@@ -19,9 +19,10 @@ select{
     background-color: #0c0c0c;
 }
 .glowscript-canvas-wrapper{
-    top:30rem;
+
 }
+
 canvas{
-    top:30rem;
+
 }
 
