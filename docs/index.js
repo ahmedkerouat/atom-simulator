@@ -630,12 +630,12 @@
                 }
             } else {
                 "160";
-                for (var ρσ_Index15 = 0; ρσ_Index15["<"](self.temp_a); ρσ_Index15++) {
+                for (var ρσ_Index15 = 0; ρσ_Index15["<"](self.a); ρσ_Index15++) {
                     i = ρσ_Index15;
                     "161";
                     self.counter=self.counter["+"](1);
                     "162";
-                    if (self.counter["<="](self.temp_z)) {
+                    if (self.counter["<="](self.z)) {
                         "163";
                         proton = ρσ_interpolate_kwargs.call(this, sphere, [ρσ_desugar_kwargs({radius: .35, color: vector(1, 0, 0), opacity: 1, pos: vector(i["*"]((await randint(1["-u"]()["*"](1), 1)))["*"](.13), (await randint(1["-u"]()["*"](1), 1))["*"](.12)["*"](i), (await randint(1["-u"]()["*"](1), 1))["*"](.1)["*"](i))})]);
                         "165";

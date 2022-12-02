@@ -6,8 +6,8 @@ class Atom():
 
     def __init__(self, A, Z):
 
-        self.a = A #Number of Nucleons
-        self.z = Z #Charge Number
+        self.a = A  # Number of Nucleons
+        self.z = Z  # Charge Number
         self.stable = "unstable"
         self.stability = False
 
@@ -55,13 +55,12 @@ class Atom():
         if self.stable == "unstable":
             self.stable_isotops_text = "None"
 
-
     def get_points(self):
 
         self.temp_a = self.a
         self.temp_z = self.z
 
-        #Avoiding lag
+        # Avoiding lag
         if self.a > 20:
             self.temp_a = round(sqrt(self.a) * 2)
             self.temp_z = round(sqrt(self.z) * 2)
@@ -136,9 +135,9 @@ class Atom():
                         0, 0, 1), opacity=1.0, pos=vector(*coords))
                     self.particles.append(neutron)
         else:
-            for i in range(self.temp_a):
+            for i in range(self.a):
                 self.counter += 1
-                if self.counter <= self.temp_z:
+                if self.counter <= self.z:
                     proton = sphere(radius=0.35, color=vector(
                         1, 0, 0), opacity=1.0, pos=vector(i * randint(-1, 1) * 0.13, randint(-1, 1) * 0.12 * i, randint(-1, 1) * 0.1 * i))
                     self.particles.append(proton)
