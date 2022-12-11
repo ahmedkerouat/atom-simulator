@@ -154,11 +154,11 @@ class Atom():
             v = 0
             for char in element:
                 v += 1
-                if v == 2:
+                if char == element[1]:
                     temp += " "
                 if char != element[1]:
                     temp += char
-                if char == element[len(element) - 1] and v != 1:
+                if char == element[len(element) - 1] and v == len(element):
                     temp += " "
 
         temp = temp.split()
@@ -167,7 +167,6 @@ class Atom():
         for i in range(1, len(temp) + 1):
             if i % 2 == 0:
                 shells[int(temp[i - 2]) - 1] += int(temp[i - 1])
-
         r = 0
         for h in shells:
             r += 1
