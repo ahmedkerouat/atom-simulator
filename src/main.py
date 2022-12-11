@@ -5,8 +5,8 @@ run = True
 dt = 100  # Time step size.
 time = 0
 
-A = 1  # Number of nucleons
-Z = 1  # Number of charges / Atomic Number
+A = 10  # Number of nucleons
+Z = 30  # Number of charges / Atomic Number
 
 names = []
 symbols = []
@@ -22,8 +22,8 @@ informations = file.readlines()
 for _ in informations:
     information = _.split()
     names.append(information[0])
-    symbols.append(information[1]) 
-    charges.append(information[2]) 
+    symbols.append(information[1])
+    charges.append(information[2])
 file.close()
 
 if 0 < Z <= 118 and type(A) == int and type(Z) == int:
@@ -33,7 +33,8 @@ if 0 < Z <= 118 and type(A) == int and type(Z) == int:
     atom.get_electron_configuration()
 
     def recreate(menu):
-        atom.z = [i for i,j in enumerate(menu.choices) if j == menu.selected][0] + 1
+        atom.z = [i for i, j in enumerate(
+            menu.choices) if j == menu.selected][0] + 1
         for menu in menus:
             menu.selected = str(menu.choices[atom.z - 1])
         atom.get_electron_configuration()
@@ -46,7 +47,8 @@ if 0 < Z <= 118 and type(A) == int and type(Z) == int:
             if int(i) == atom.a:
                 atom.stability = True
         m4.selected = str(atom.a - atom.z)
-        t1.text = ("\n\nElectron Configuration: " + atom.config_result + "\n\nStable: " + str(atom.stability) +"\n\nStable Isotops: " + atom.stable_isotops_text)
+        t1.text = ("\n\nElectron Configuration: " + atom.config_result + "\n\nStable: " +
+                   str(atom.stability) + "\n\nStable Isotops: " + atom.stable_isotops_text)
         atom.delete()
         if atom.a >= 4:
             atom.get_points()
@@ -55,7 +57,8 @@ if 0 < Z <= 118 and type(A) == int and type(Z) == int:
     def neutron_slider(menu):
         atom.a = atom.z + int(menu.selected)
         atom.get_info()
-        t1.text = ("\n\nElectron Configuration: " + atom.config_result + "\n\nStable: " + str(atom.stability) +"\n\nStable Isotops: " + atom.stable_isotops_text)
+        t1.text = ("\n\nElectron Configuration: " + atom.config_result + "\n\nStable: " +
+                   str(atom.stability) + "\n\nStable Isotops: " + atom.stable_isotops_text)
         atom.delete()
         atom.get_electron_configuration()
         if atom.a >= 4:
@@ -69,9 +72,11 @@ if 0 < Z <= 118 and type(A) == int and type(Z) == int:
     scene.append_to_caption("\n\nAtomic Number: ")
     m3 = menu(choices=charges, bind=recreate, selected=str(atom.z))
     scene.append_to_caption("\n\nNeutron Number: ")
-    m4 = menu(choices=neutrons_list, bind=neutron_slider, selected=str((atom.a - atom.z)))
-    t1 = wtext(text=("\n\nElectron Configuration: " + atom.config_result + "\n\nStable: " + str(atom.stability) +"\n\nStable Isotops: " + atom.stable_isotops_text))
-    
+    m4 = menu(choices=neutrons_list, bind=neutron_slider,
+              selected=str((atom.a - atom.z)))
+    t1 = wtext(text=("\n\nElectron Configuration: " + atom.config_result + "\n\nStable: " +
+               str(atom.stability) + "\n\nStable Isotops: " + atom.stable_isotops_text))
+
     menus = [m1, m2, m3]
 
     if A >= 4:

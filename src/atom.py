@@ -119,7 +119,7 @@ class Atom():
         self.config_result = (" ".join(self.result))
 
     def point(self, j, k, r):
-        theta = random() * 3 * pi
+        theta = (random() * 3 * pi) + (random() * 10)
         return j + cos(theta) * r, k + sin(theta) * r
 
     def build(self):
@@ -146,11 +146,30 @@ class Atom():
                         0, 0, 1), opacity=1.0, pos=vector(i * randint(-1, 1) * 0.12, randint(-1, 1) * 0.13 * i, randint(-1, 1) * 0.1 * i))
                     self.particles.append(neutron)
 
-        conf = self.config_result
-        for element in self.orbitals:
-            conf = conf.replace(element, "")
+        conf = self.config_result.split()
+        conf.sort()
+        temp = ""
+        shells = []
+        for element in conf:
+            v = 0
+            for char in element:
+                v += 1
+                if v == 2:
+                    temp += " "
+                if char != element[1]:
+                    temp += char
+                if char == element[len(element) - 1] and v != 1:
+                    temp += " "
+
+        temp = temp.split()
+        for _ in range(len(temp) // 2):
+            shells.append(0)
+        for i in range(1, len(temp) + 1):
+            if i % 2 == 0:
+                shells[int(temp[i - 2]) - 1] += int(temp[i - 1])
+
         r = 0
-        for h in conf.split():
+        for h in shells:
             r += 1
             for i in range(1, int(h) + 1):
                 xy = self.point(0, 0,
