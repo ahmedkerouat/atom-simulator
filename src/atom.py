@@ -119,7 +119,7 @@ class Atom():
         self.config_result = (" ".join(self.result))
 
     def point(self, j, k, r):
-        theta = (random() * 3 * pi) + (random() * 10)
+        theta = random() * 1.5 * pi
         return j + cos(theta) * r, k + sin(theta) * r
 
     def build(self):
@@ -175,7 +175,7 @@ class Atom():
                 xy = self.point(0, 0,
                                 (r * 0.7 * sqrt(self.a)))
                 electron = sphere(radius=(0.1 + 0.03 * sqrt(self.a)), color=vector(
-                    1, 1, 0), make_trail=True, retain=300, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))
+                    1, 1, 0), make_trail=True, retain=400, trail_color=vector(1, 1, 1), opacity=1.0, pos=vector(*xy, 0))
                 self.electrons.append(electron)
                 self.particles.append(electron)
 
