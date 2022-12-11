@@ -591,7 +591,7 @@ async function __main__() {
         var self = this;
         var ρσ_ls, theta;
         "144";
-        theta = random()["*"](pi)["*"](1.5);
+        theta = random()["*"](100)["*"](pi);
         "145";
         return [j["+"](cos(theta)["*"](r)), k["+"](sin(theta)["*"](r))];
     };
@@ -682,7 +682,7 @@ async function __main__() {
                     temp=temp["+"](char);
                     "183";
                 }
-                if ((char === ρσ_getitem(element, len(element)["-"](1["*"](1))) || typeof char === "object" && ρσ_equals(char, ρσ_getitem(element, len(element)["-"](1["*"](1))))) && (v !== 1 && (typeof v !== "object" || ρσ_not_equals(v, 1)))) {
+                if ((char === ρσ_getitem(element, len(element)["-"](1["*"](1))) || typeof char === "object" && ρσ_equals(char, ρσ_getitem(element, len(element)["-"](1["*"](1))))) && ρσ_equals(v, len(element))) {
                     "184";
                     temp=temp["+"](" ");
                 }

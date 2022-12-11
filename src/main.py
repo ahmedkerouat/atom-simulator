@@ -5,8 +5,8 @@ run = True
 dt = 100  # Time step size.
 time = 0
 
-A = 10  # Number of nucleons
-Z = 30  # Number of charges / Atomic Number
+A = 1  # Number of nucleons
+Z = 1  # Number of charges / Atomic Number
 
 names = []
 symbols = []
